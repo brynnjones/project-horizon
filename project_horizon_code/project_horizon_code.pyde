@@ -4,12 +4,13 @@ def setup():
     global sShip
     global sX, sY
     global theta
-    
+    global laser
     sShip  = loadImage("sShip.png") # If pulled from github directly, the image file and where the image should be accessed should be correct. If not, go to the repository and directly save the image into the correct folder
     sX = 0
     sY = 0
     theta = 0.01
-    
+    def laser(x,y):
+        rect(x,y,5,10)
     frameRate(60)
     
 def draw():
@@ -17,11 +18,12 @@ def draw():
     global sShip
     global sX, sY
     global theta
+    global laser
     
     translate(width/2, height/2)
     rotate(theta)
     image(sShip, sX, sY, 100, 100)
-    
+    laser(47.5,5)
     # The Goal: To rotate with A and D
     if keyPressed:
         if key == "a" or key == "A":
