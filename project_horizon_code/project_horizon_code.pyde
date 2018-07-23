@@ -1,17 +1,37 @@
 def setup():
     size(1000, 1000)
-    ## CREATING THE SPRITE ##
+    ## SPRITE STUFF ##
     global sShip
+    global sX, sY
+    global theta
+    
     sShip  = loadImage("sShip.png") # If pulled from github directly, the image file and where the image should be accessed should be correct. If not, go to the repository and directly save the image into the correct folder
-    ## END OF THE CODE FOR CREATING THE SPRITE ##
+    sX = 0
+    sY = 0
+    theta = 0.01
+    
+    frameRate(60)
     
 def draw():
     background(0)
-    ## PLACEMENT OF THE SPRITE ##
     global sShip
+    global sX, sY
+    global theta
     
-    image(sShip, 450, 450, 100, 100)
-    ## END OF THE CODE FOR PLACING THE SPRITE ##
+    translate(width/2, height/2)
+    rotate(theta)
+    image(sShip, sX, sY, 100, 100)
+    
+    # The Goal: To rotate with A and D
+    if keyPressed:
+        if key == "a" or key == "A":
+            theta -= 0.05 # This is similar to saying theta = theta - 0.05
+        if key == "d" or key == "D":
+            theta+= 0.05       
+    
+    
+    ## END OF THE SPRITE STUFF ##
+
     
     
     
