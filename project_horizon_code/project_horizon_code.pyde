@@ -5,12 +5,13 @@ def setup():
     global northShip, southShip, eastShip, westShip
     global north, south, east, west
     global sX, sY, sW, sH
+    global laser
+    
     
     northShip = loadImage("sShip_North.png")
     southShip = loadImage("sShip_South.png")
     eastShip = loadImage("sShip_East.png")
     westShip = loadImage("sShip_West.png")
-    
     north = True
     south = False
     east = False
@@ -20,6 +21,11 @@ def setup():
     sY = 450
     sW = 95
     sH = 95
+
+def laser (x,y):
+    rect(x,y,5,10)
+        
+    
     
     
 def draw():
@@ -43,18 +49,27 @@ def draw():
             south = False
             east = False
             west = False
-        if key == "S" or key == "s":
+            
+        elif key == "S" or key == "s":
             north = False
             south = True
             east = False
             west = False
-        if key == "D" or key == "d":
+        elif key == "D" or key == "d":
             north = False
             south = False
             east = True
             west = False
-        if key == "A" or key == "a":
+        elif key == "A" or key == "a":
             north = False
             south = False
             east = False
             west = True
+        elif key == "W"and key ==" ":
+            speed = 100
+            while speed < 600  :
+                fill (254,254,254) 
+                noStroke()
+                laser(450,speed) 
+                speed = speed+2
+            
