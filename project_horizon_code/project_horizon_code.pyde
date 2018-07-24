@@ -9,8 +9,10 @@ def setup():
     sX = 0
     sY = 0
     theta = 0.01
-    def laser(x,y):
-        rect(x,y,5,10)
+    global speed
+    
+def laser(x,y):
+    rect(x,y,5,10)
     frameRate(60)
     
 def draw():
@@ -19,6 +21,7 @@ def draw():
     global sX, sY
     global theta
     global laser
+    
     
     translate(width/2, height/2)
     rotate(theta)
@@ -29,8 +32,26 @@ def draw():
         if key == "a" or key == "A":
             theta -= 0.05 # This is similar to saying theta = theta - 0.05
         if key == "d" or key == "D":
-            theta+= 0.05       
-    
+            theta+= 0.05 
+        if key == " ":
+           speed = 0
+           while speed < 400:
+            fill (254,254,254)
+            laser(47.5,speed)
+            speed += 2
+            
+                 
+# def mousePressed():
+#     global speed
+#     global laser
+#     if mouseButton == LEFT :
+#         speed = 0
+#         while speed < 400 :
+#             fill (254,254,254)
+#             laser(47.5,speed)
+#             speed += 2
+            
+#         print speed
     
     ## END OF THE SPRITE STUFF ##
 
