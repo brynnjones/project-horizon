@@ -35,7 +35,7 @@ def draw():
             theta+= 0.05 
         if key == " ": #laser shooting using spacebar
            speed = 100
-           while speed > -20 0   :
+           while speed > -600  :
             fill (254,254,254)
             noStroke()
             laser(47.5,speed)
