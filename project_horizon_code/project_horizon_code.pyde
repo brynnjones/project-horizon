@@ -33,25 +33,13 @@ def draw():
             theta -= 0.05 # This is similar to saying theta = theta - 0.05
         if key == "d" or key == "D":
             theta+= 0.05 
-        if key == " ":
-           speed = 0
-           while speed < 400:
+        if key == " ": #laser shooting using spacebar
+           speed = 100
+           while speed > -20 0   :
             fill (254,254,254)
+            noStroke()
             laser(47.5,speed)
-            speed += 2
-            
-                 
-# def mousePressed():
-#     global speed
-#     global laser
-#     if mouseButton == LEFT :
-#         speed = 0
-#         while speed < 400 :
-#             fill (254,254,254)
-#             laser(47.5,speed)
-#             speed += 2
-            
-#         print speed
+            speed = speed-2
     
     ## END OF THE SPRITE STUFF ##
 
