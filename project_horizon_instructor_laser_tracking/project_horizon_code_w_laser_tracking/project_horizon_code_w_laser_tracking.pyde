@@ -9,7 +9,7 @@ def setup():
     imageMode(CENTER)
     sX = 0
     sY = 0
-    theta = 0.00
+    theta = 0.01
     
     
     global laserX, laserY, laserW, laserH
@@ -17,7 +17,7 @@ def setup():
     laserX = 0
     laserY = -3
     laserW = 100000
-    laserH = 5
+    laserH = 3
     
     global ball
     global elipsex
@@ -25,8 +25,8 @@ def setup():
     global elipseS
     
     ball = True
-    elipsex = -350
-    elipsey = 2.5
+    elipsex = -300
+    elipsey = 0
     elipseS = 25
     
     global speed
@@ -66,8 +66,8 @@ def draw():
     fill(255)
     stroke(255, 0, 0)
     ellipse(noX, noY, 10, 10)
-    print noX, noY
-    print 2*PI - theta, tan(2 * PI - theta)
+    # print noX, noY
+    # print 2*PI - theta, tan(2 * PI - theta)
     
     if ball:
         ellipse(elipsex,elipsey,elipseS,elipseS)
@@ -84,7 +84,7 @@ def draw():
     
         
 
-    
+    print degrees(theta)
     # The Goal: To rotate with A and D
 def keyPressed():
     frameRate(100)
@@ -103,24 +103,25 @@ def keyPressed():
     global elipseS
     
     if key == "a" or key == "A":
-        theta -=.05 # This is similar to saying theta = theta - 0.05
+        theta -= .01 # This is similar to saying theta = theta - 0.05
         theta = theta % TWO_PI
     if key == "d" or key == "D":
-        theta+= .05 
+        theta+= .01 
         theta = theta % TWO_PI
     if key == " ": #laser shooting using spacebar
         shoot = True
         testx = 0
-        while testx<=500:
+        facingLeft = theta >= PI/2 and theta <= 3*(PI/2)
+        while testx <= 500:
             testy = tan(2 * PI - theta) * testx* -1
-            if ((testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2:
+            if ((testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2 and not facingLeft: #Tests if theta is positive
                 ball = False
                 break
-                testy = tan(2 * PI - theta) * testx
-            if ((-testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2:
+            testy = tan(2 * PI - theta) * testx
+            if ((-testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2 and facingLeft: #Tests if theta is negative
                 ball = False 
                 break 
-            testx = testx +1    
+            testx += 1   
         
         
 def keyReleased():
