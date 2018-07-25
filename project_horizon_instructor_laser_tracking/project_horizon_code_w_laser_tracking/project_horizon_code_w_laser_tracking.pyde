@@ -126,43 +126,43 @@ def draw():
     if shield4:
         fill(247,215,9, 190)
         ellipse(0,0,800,800)
-    if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 412**2 and shield4:
+    if (ellipse1_x - 0)**2 + (ellipse1_y - 0)**2  < 412**2 and shield4:
         print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
         speed7X = -speed7X
         shield4 = False
-    if shield3:
-        fill(0, 255, 0, 180)
-        ellipse(0,0,600,600)
-    if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 312**2 and shield3:
-        print "Switch"
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield3 = False
-    if shield2:
-        fill(0, 0, 255, 190)
-        ellipse(0,0,400,400)
-    if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 212**2 and shield2:
-        print "Switch"
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield2 = False
-    if shield1:
-        fill(255, 0, 0, 190)
-        ellipse(0,0,200,200)
-    if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 112**2 and shield1:
-        print "Switch"
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield1 = False
+    # if shield3:
+    #     fill(0, 255, 0, 180)
+    #     ellipse(0,0,600,600)
+    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 312**2 and shield3:
+    #     print "Switch"
+    #     speedY = -speedY
+    #     speed5Y = -speed5Y
+    #     speed3X = -speed3X
+    #     speed7X = -speed7X
+    #     shield3 = False
+    # if shield2:
+    #     fill(0, 0, 255, 190)
+    #     ellipse(0,0,400,400)
+    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 212**2 and shield2:
+    #     print "Switch"
+    #     speedY = -speedY
+    #     speed5Y = -speed5Y
+    #     speed3X = -speed3X
+    #     speed7X = -speed7X
+    #     shield2 = False
+    # if shield1:
+    #     fill(255, 0, 0, 190)
+    #     ellipse(0,0,200,200)
+    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 112**2 and shield1:
+    #     print "Switch"
+    #     speedY = -speedY
+    #     speed5Y = -speed5Y
+    #     speed3X = -speed3X
+    #     speed7X = -speed7X
+    #     shield1 = False
       
     global ellipse1_x, ellipse1_y, speedY, ellipse1Negative
     global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative 
@@ -171,10 +171,10 @@ def draw():
       
     #ball 1
     # if ball 1 hit the outter circle at 500 then  bounce back... then come back down
-    ellipse1_y = ellipse1_y + speedY 
+    ellipse1_y = ellipse1_y - speedY 
     fill(255,0,0)
     ellipse(ellipse1_x, ellipse1_y,25,25)
-    if ellipse1_y < 10:
+    if ellipse1_y < -490:
         ellipseNegative = False 
         speedY = -speedY 
             
@@ -183,7 +183,7 @@ def draw():
     fill(0,255,0)
     ellipse5_y = ellipse5_y + speed5Y
     ellipse(ellipse5_x, ellipse5_y,25,25)
-    if ellipse5_y > 990:
+    if ellipse5_y > 490:
 
         ellipseNegative = False 
         speed5Y = -speed5Y 
