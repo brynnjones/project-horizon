@@ -4,20 +4,28 @@ def setup():
     global sShip
     global sX, sY
     global theta
-    
+    global ball
+    global elipsex
+    global elipsey
+    global elipseS
     sShip  = loadImage("sShip.png") # If pulled from github directly, the image file and where the image should be accessed should be correct. If not, go to the repository and directly save the image into the correct folder
     imageMode(CENTER)
     sX = 0
     sY = 0
     theta = 0.00
     
+    ball = True
+    
     global laserX, laserY, laserW, laserH
     
     laserX = 0
-    laserY = 0
+    laserY = -3
     laserW = 100000
     laserH = 5
     
+    elipsex = -350
+    elipsey = 2.5
+    elipseS = 25
     frameRate(100)
     
     global speed
@@ -41,10 +49,14 @@ def draw():
     global speed   
     global laserX, laserY, laserW, laserH
     global shoot
-    
+    global ball
+    global elipsex
+    global elipsey
+    global elipseS
     noX = 100
     noY = tan(2 * PI - theta) * noX * -1
-    
+    if ball == True :
+        ellipse(elipsex,elipsey,elipseS,elipseS)
     #print 'other theta: ' + str(atan(noY/noX))
     #noX, noY = get_coords(noX, noY)
     translate(500, 500)    
@@ -75,6 +87,10 @@ def keyPressed():
     global speed   
     global laserX, laserY, laserW, laserH
     global shoot
+    global ball
+    global elipsex
+    global elipsey
+    global elipseS
     
     if key == "a" or key == "A":
         theta -=.05 # This is similar to saying theta = theta - 0.05
@@ -84,6 +100,17 @@ def keyPressed():
         theta = theta % TWO_PI
     if key == " ": #laser shooting using spacebar
         shoot = True
+        testx = 0
+        while testx<=500:
+                testy = tan(2 * PI - theta) * testx* -1
+                if ((testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2:
+                    ball = False
+                    break
+                testy = tan(2 * PI - theta) * testx
+                if ((-testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2:
+                    ball = False 
+                    break 
+                testx = testx +1    
         
 def keyReleased():
     frameRate(100)
@@ -99,6 +126,8 @@ def keyReleased():
     
     if key == " ":
         shoot = False
+        
+        
             
             
 
