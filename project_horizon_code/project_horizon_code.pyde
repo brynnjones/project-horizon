@@ -58,3 +58,16 @@ def draw():
             south = False
             east = False
             west = True
+            
+            
+ 
+    
+    laserW = 5
+    laserH = 60
+    
+    shooter = False
+    
+    rect(laserX, laserY, laserW, laserH)
+    
+    if key == " ":
+        shooter = True
