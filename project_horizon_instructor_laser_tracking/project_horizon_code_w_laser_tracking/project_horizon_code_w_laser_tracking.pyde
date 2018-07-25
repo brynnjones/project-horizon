@@ -22,20 +22,27 @@ def setup():
     
     global speed
     speed = 100
+    
+    global shoot
+    shoot = False
 
 def get_coords(x, y):
     return (x - 500, -1 * (y - 500))
 
 def draw():
     background(0)
+    frameRate(100)
+    smooth()
+    
     global sShip
     global sX, sY
     global theta
     global laser
     global speed   
     global laserX, laserY, laserW, laserH
+    global shoot
     
-    noX = 350
+    noX = 100
     noY = tan(2 * PI - theta) * noX * -1
     
     #print 'other theta: ' + str(atan(noY/noX))
@@ -52,27 +59,47 @@ def draw():
     rotate(theta)
     image(sShip, sX, sY, 100, 100)
     
-    # The Goal: To rotate with A and D
-    if keyPressed:
-        if key == "a" or key == "A":
-            theta -=.05 # aaaThis is similar to saying theta = theta - 0.05
-            theta = theta % TWO_PI
-        if key == "d" or key == "D":
-            theta+= .05 
-            theta = theta % TWO_PI
-        if key == " ": #laser shooting using spacebar
-            fill (254)
-            rect(laserX, laserY, laserW, laserH)
-                        
-    # print laserX, laserY
-            
-    # guideX = 50
-    # guideY = -105
-    # # tan(theta) * guideX
-            
-    # fill(255, 0, 0)
-    # stroke(255)        
-    # ellipse(guideX, guideY, 10, 10)    
+    if shoot:
+        fill (254)
+        rect(laserX, laserY, laserW, laserH)
     
-    # print tan(theta)
+    # The Goal: To rotate with A and D
+def keyPressed():
+    frameRate(100)
+    smooth()
+    
+    global sShip
+    global sX, sY
+    global theta
+    global laser
+    global speed   
+    global laserX, laserY, laserW, laserH
+    global shoot
+    
+    if key == "a" or key == "A":
+        theta -=.05 # This is similar to saying theta = theta - 0.05
+        theta = theta % TWO_PI
+    if key == "d" or key == "D":
+        theta+= .05 
+        theta = theta % TWO_PI
+    if key == " ": #laser shooting using spacebar
+        shoot = True
+        
+def keyReleased():
+    frameRate(100)
+    smooth()
+    
+    global sShip
+    global sX, sY
+    global theta
+    global laser
+    global speed   
+    global laserX, laserY, laserW, laserH
+    global shoot
+    
+    if key == " ":
+        shoot = False
+            
+            
+
  ## END OF THE SPRITE STUFF ##
