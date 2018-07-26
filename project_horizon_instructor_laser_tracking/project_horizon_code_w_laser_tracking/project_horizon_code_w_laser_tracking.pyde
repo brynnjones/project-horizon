@@ -3,7 +3,7 @@ def setup():
     #background
     img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
     
-    #SHIELDS
+    ## SHIELDS ##
     
     #shield
     global shield4_x, shield4_y, shield4
@@ -13,45 +13,52 @@ def setup():
     
     #shield3
     global shield3_x, shield3_y, shield3
-    shield3_x = 500
-    shield3_x = 500
+    shield3_x = 0
+    shield3_x = 0
     shield3 = True 
     
     #shield2
     global shield2_x, shield2_y, shield2
-    shield2_x = 500
-    shield2_x = 500
+    shield2_x = 0
+    shield2_x = 0
     shield2 = True 
     
     #shield1
     global shield1_x, shield1_y, shield1
-    shield1_x = 500
-    shield1_x = 500
+    shield1_x = 0
+    shield1_x = 0
     shield1 = True 
     
-    #BALLS
+    ## BALLS ##
     
     #RED BALL
-    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative
+    global ellipse1_x, ellipse1_y, speedY, ellipse1_s, ellipse1Negative
     ellipse1_x = 0
     ellipse1_y = -450
+    ellipse1_s = 25
     speedY = .5
     ellipse1Negative = False
+    
     #GREEN BALL
-    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative 
+    global ellipse5_x, ellipse5_y, speed5Y, ellipse5_s, ellipseNegative 
     ellipse5_x = 0
     ellipse5_y = 450
-    speed5Y = -.5
+    ellipse5_s = 25
+    speed5Y = .5
+    
     #BLUE BALL
-    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative 
+    global ellipse3_x, ellipse3_y, speed3X, ellipse3_s, ellipseNagative 
     ellipse3_x = 450
     ellipse3_y = 0
-    speed3X = -.5 
+    ellipse3_s = 25
+    speed3X = .5 
+    
     #YELLOW BALL 
-    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative 
+    global ellipse7_x, ellipse7_y, speed7X, ellipse7_s, ellipseNagative 
     ellipse7_x = -450
     ellipse7_y = 0
-    speed7X = .5 
+    ellipse7_s = 25
+    speed7X = -.5 
     
     global redBall, blueBall, greenBall, yellowBall
     
@@ -73,23 +80,14 @@ def setup():
     sY = 0
     theta = 0.01
     
+    ## LASERS ##
     
     global laserX, laserY, laserW, laserH
     
     laserX = 0
     laserY = -3
     laserW = 100000
-    laserH = 3
-    
-    global ball
-    global elipsex
-    global elipsey
-    global elipseS
-    
-    ball = True
-    elipsex = -300
-    elipsey = 0
-    elipseS = 25
+    laserH = 5
     
     global speed
     speed = 100
@@ -116,16 +114,9 @@ def draw():
     global laserX, laserY, laserW, laserH
     global shoot
     global ball
-    global elipsex
-    global elipsey
-    global elipseS
     global redBall, blueBall, greenBall, yellowBall
+    global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
     
-    noX = 100
-    noY = tan(2 * PI - theta) * noX * -1
-    
-    #print 'other theta: ' + str(atan(noY/noX))
-    #noX, noY = get_coords(noX, noY)
     translate(500, 500)    
     image(img,0,0)
     
@@ -136,51 +127,50 @@ def draw():
     global shield1_x, shield1_y, shield1
     #sheilds functions 
     if shield4:
-        fill(247,215,9, 190)
+        fill(247,215,9, 125)
         ellipse(0,0,800,800)
-    if (ellipse1_x - 0)**2 + (ellipse1_y - 0)**2  < 412**2 and shield4:
+    if (((ellipse1_x)**2 + (ellipse1_y)**2  or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2))) < 422**2 and shield4 and (redBall or greenBall or blueBall or yellowBall):
         print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
         speed7X = -speed7X
         shield4 = False
-    # if shield3:
-    #     fill(0, 255, 0, 180)
-    #     ellipse(0,0,600,600)
-    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 312**2 and shield3:
-    #     print "Switch"
-    #     speedY = -speedY
-    #     speed5Y = -speed5Y
-    #     speed3X = -speed3X
-    #     speed7X = -speed7X
-    #     shield3 = False
-    # if shield2:
-    #     fill(0, 0, 255, 190)
-    #     ellipse(0,0,400,400)
-    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 212**2 and shield2:
-    #     print "Switch"
-    #     speedY = -speedY
-    #     speed5Y = -speed5Y
-    #     speed3X = -speed3X
-    #     speed7X = -speed7X
-    #     shield2 = False
-    # if shield1:
-    #     fill(255, 0, 0, 190)
-    #     ellipse(0,0,200,200)
-    # if (((ellipse1_x - 500)**2 + (ellipse1_y - 500)**2) or ((ellipse3_x - 500)**2 + (ellipse3_y - 500)**2) or ((ellipse5_x - 500)**2 + (ellipse5_y - 500)**2) or ((ellipse7_x - 500)**2 + (ellipse7_y - 500)**2)) < 112**2 and shield1:
-    #     print "Switch"
-    #     speedY = -speedY
-    #     speed5Y = -speed5Y
-    #     speed3X = -speed3X
-    #     speed7X = -speed7X
-    #     shield1 = False
+    if shield3:
+        fill(0, 255, 0, 125)
+        ellipse(0,0,600,600)
+    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 322**2 and shield3 and (redBall or greenBall or blueBall or yellowBall):
+        print "Switch"
+        speedY = -speedY
+        speed5Y = -speed5Y
+        speed3X = -speed3X
+        speed7X = -speed7X
+        shield3 = False
+    if shield2:
+        fill(0, 0, 255, 125)
+        ellipse(0,0,400,400)
+    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 222**2 and shield2 and (redBall or greenBall or blueBall or yellowBall):
+        print "Switch"
+        speedY = -speedY
+        speed5Y = -speed5Y
+        speed3X = -speed3X
+        speed7X = -speed7X
+        shield2 = False
+    if shield1:
+        fill(255, 0, 0, 180)
+        ellipse(0,0,200,200)
+    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 122**2 and shield1 and (redBall or greenBall or blueBall or yellowBall):
+        print "Switch"
+        speedY = -speedY
+        speed5Y = -speed5Y
+        speed3X = -speed3X
+        speed7X = -speed7X
+        shield1 = False
       
-    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative
-    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative 
-    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative 
-    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative 
-    
+    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative # Red Ball Variables
+    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative # Green Ball Variables
+    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative # Blue Ball Variables
+    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative # Yellow Ball Variables
     
       
     #RED BALL
@@ -189,9 +179,9 @@ def draw():
     
     if redBall:
         fill(255,0,0)
-        ellipse(ellipse1_x, ellipse1_y,25,25)
+        ellipse(ellipse1_x, ellipse1_y, 50, 50)
         
-    if ellipse1_y < -490:
+    if ellipse1_y < -475:
         ellipseNegative = False 
         speedY = -speedY 
             
@@ -201,10 +191,9 @@ def draw():
     
     if greenBall:
         fill(0,255,0)
-        ellipse(ellipse5_x, ellipse5_y,25,25)
+        ellipse(ellipse5_x, ellipse5_y, 50, 50)
         
-    if ellipse5_y > 490:
-
+    if ellipse5_y > 475:
         ellipseNegative = False 
         speed5Y = -speed5Y 
     
@@ -213,37 +202,23 @@ def draw():
     
     if blueBall:
         fill(0,0,255)
-        ellipse(ellipse3_x, ellipse3_y,25,25)
+        ellipse(ellipse3_x, ellipse3_y, 50, 50)
         
-    if ellipse3_x > 990:
+    if ellipse3_x > 475:
         ellipseNegative = False  
         speed3X = -speed3X
-
-    print ellipse3_x, speed3X
     
     #YELLOW BALL
     ellipse7_x = ellipse7_x + speed7X
     
     if yellowBall:
         fill(247,215,9)
-        ellipse(ellipse7_x, ellipse7_y,25,25)
+        ellipse(ellipse7_x, ellipse7_y, 50, 50)
         
-    if ellipse7_x < 10:
+    if ellipse7_x < -475:
         ellipseNegative = False 
         speed7X = -speed7X 
-     
 
-    fill(255)
-    
-    stroke(255, 0, 0)
-    ellipse(noX, noY, 10, 10)
-    # print noX, noY
-    # print 2*PI - theta, tan(2 * PI - theta)
-    
-    if ball:
-        ellipse(elipsex,elipsey,elipseS,elipseS)
-
-        
     #translate(500, 500)
     rotate(theta)
     image(sShip, sX, sY, 100, 100)
@@ -252,10 +227,6 @@ def draw():
         fill(254)
         rect(laserX, laserY, laserW, laserH)
         
-    
-        
-
-    print degrees(theta)
     # The Goal: To rotate with A and D
 def keyPressed():
     frameRate(100)
@@ -269,30 +240,54 @@ def keyPressed():
     global laserX, laserY, laserW, laserH
     global shoot
     global ball
-    global elipsex
-    global elipsey
-    global elipseS
+    global redBall, blueBall, greenBall, yellowBall
+    global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
+
     
     if key == "a" or key == "A":
-        theta -= .01 # This is similar to saying theta = theta - 0.05
+        theta -= .05 # This is similar to saying theta = theta - 0.05
         theta = theta % TWO_PI
     if key == "d" or key == "D":
-        theta+= .01 
+        theta += .05 
         theta = theta % TWO_PI
     if key == " ": #laser shooting using spacebar
         shoot = True
         testx = 0
         facingLeft = theta >= PI/2 and theta <= 3*(PI/2)
         while testx <= 500:
-            testy = tan(2 * PI - theta) * testx* -1
-            if ((testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2 and not facingLeft: #Tests if theta is positive
-                ball = False
+            testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Red Ball
+            if ((testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and not facingLeft: #Tests if theta is positive
+                redBall = False
                 break
             testy = tan(2 * PI - theta) * testx
-            if ((-testx - elipsex)**2 + (testy - elipsey)**2) < (elipseS/2)**2 and facingLeft: #Tests if theta is negative
-                ball = False 
+            if ((-testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and facingLeft: #Tests if theta is negative
+                redBall = False 
                 break 
-            testx += 1   
+            testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Green Ball
+            if ((testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and not facingLeft: #Tests if theta is positive
+                greenBall = False
+                break
+            testy = tan(2 * PI - theta) * testx
+            if ((-testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and facingLeft: #Tests if theta is negative
+                greenBall = False 
+                break 
+            testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Blue Ball
+            if ((testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and not facingLeft: #Tests if theta is positive
+                blueBall = False
+                break
+            testy = tan(2 * PI - theta) * testx
+            if ((-testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and facingLeft: #Tests if theta is negative
+                blueBall = False 
+                break 
+            testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Yellow Ball
+            if ((testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and not facingLeft: #Tests if theta is positive
+                yellowBall = False
+                break
+            testy = tan(2 * PI - theta) * testx
+            if ((-testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and facingLeft: #Tests if theta is negative
+                yellowBall = False 
+                break 
+            testx += 1               
         
         
 def keyReleased():
@@ -309,9 +304,5 @@ def keyReleased():
     
     if key == " ":
         shoot = False
-        
-        
-            
-            
 
  ## END OF THE SPRITE STUFF ##
