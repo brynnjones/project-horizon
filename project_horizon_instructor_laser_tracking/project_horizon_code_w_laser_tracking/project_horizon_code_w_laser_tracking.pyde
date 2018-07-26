@@ -4,21 +4,25 @@ def setup():
     img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
     
     #SHIELDS
+    
     #shield
     global shield4_x, shield4_y, shield4
     shield4_x = 0
     shield4_y = 0
     shield4 = True 
+    
     #shield3
     global shield3_x, shield3_y, shield3
     shield3_x = 500
     shield3_x = 500
     shield3 = True 
+    
     #shield2
     global shield2_x, shield2_y, shield2
     shield2_x = 500
     shield2_x = 500
     shield2 = True 
+    
     #shield1
     global shield1_x, shield1_y, shield1
     shield1_x = 500
@@ -27,27 +31,34 @@ def setup():
     
     #BALLS
     
-    #ball 1
+    #RED BALL
     global ellipse1_x, ellipse1_y, speedY, ellipse1Negative
     ellipse1_x = 0
     ellipse1_y = -450
     speedY = .5
     ellipse1Negative = False
-    #ball 5
+    #GREEN BALL
     global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative 
     ellipse5_x = 0
     ellipse5_y = 450
     speed5Y = -.5
-    #ball 3
+    #BLUE BALL
     global ellipse3_x, ellipse3_y, speed3X, ellipseNagative 
     ellipse3_x = 450
     ellipse3_y = 0
     speed3X = -.5 
-    #ball 7 
+    #YELLOW BALL 
     global ellipse7_x, ellipse7_y, speed7X, ellipseNagative 
     ellipse7_x = -450
     ellipse7_y = 0
     speed7X = .5 
+    
+    global redBall, blueBall, greenBall, yellowBall
+    
+    redBall = True
+    blueBall = True
+    greenBall = True
+    yellowBall = True
     
     ## SPRITE STUFF ##
     global sShip
@@ -108,6 +119,7 @@ def draw():
     global elipsex
     global elipsey
     global elipseS
+    global redBall, blueBall, greenBall, yellowBall
     
     noX = 100
     noY = tan(2 * PI - theta) * noX * -1
@@ -168,40 +180,54 @@ def draw():
     global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative 
     global ellipse3_x, ellipse3_y, speed3X, ellipseNagative 
     global ellipse7_x, ellipse7_y, speed7X, ellipseNagative 
+    
+    
       
-    #ball 1
+    #RED BALL
     # if ball 1 hit the outter circle at 500 then  bounce back... then come back down
     ellipse1_y = ellipse1_y - speedY 
-    fill(255,0,0)
-    ellipse(ellipse1_x, ellipse1_y,25,25)
+    
+    if redBall:
+        fill(255,0,0)
+        ellipse(ellipse1_x, ellipse1_y,25,25)
+        
     if ellipse1_y < -490:
         ellipseNegative = False 
         speedY = -speedY 
             
-    #ball 5
+    #GREEN BALL
     #if ball 5 hits shield 4 at 800 then bounce back...
-    fill(0,255,0)
     ellipse5_y = ellipse5_y + speed5Y
-    ellipse(ellipse5_x, ellipse5_y,25,25)
+    
+    if greenBall:
+        fill(0,255,0)
+        ellipse(ellipse5_x, ellipse5_y,25,25)
+        
     if ellipse5_y > 490:
 
         ellipseNegative = False 
         speed5Y = -speed5Y 
     
-    #ball 3
-    fill(0,0,255)
+    #BLUE BALL
     ellipse3_x = ellipse3_x + speed3X
-    ellipse(ellipse3_x, ellipse3_y,25,25)
+    
+    if blueBall:
+        fill(0,0,255)
+        ellipse(ellipse3_x, ellipse3_y,25,25)
+        
     if ellipse3_x > 990:
         ellipseNegative = False  
         speed3X = -speed3X
 
     print ellipse3_x, speed3X
     
-    #ball 7 
-    fill(247,215,9)
+    #YELLOW BALL
     ellipse7_x = ellipse7_x + speed7X
-    ellipse(ellipse7_x, ellipse7_y,25,25)
+    
+    if yellowBall:
+        fill(247,215,9)
+        ellipse(ellipse7_x, ellipse7_y,25,25)
+        
     if ellipse7_x < 10:
         ellipseNegative = False 
         speed7X = -speed7X 
