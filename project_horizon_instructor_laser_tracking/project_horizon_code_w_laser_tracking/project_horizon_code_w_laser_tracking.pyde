@@ -1,6 +1,7 @@
 def setup():
     size(1000, 1000)
     #background
+    global img
     img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
     
     ## SHIELDS ##
@@ -35,7 +36,7 @@ def setup():
     global ellipse1_x, ellipse1_y, speedY, ellipse1_s, ellipse1Negative
     ellipse1_x = 0
     ellipse1_y = -450
-    ellipse1_s = 25
+    ellipse1_s = 30
     speedY = .5
     ellipse1Negative = False
     
@@ -43,21 +44,21 @@ def setup():
     global ellipse5_x, ellipse5_y, speed5Y, ellipse5_s, ellipseNegative 
     ellipse5_x = 0
     ellipse5_y = 450
-    ellipse5_s = 25
+    ellipse5_s = 30
     speed5Y = .5
     
     #BLUE BALL
     global ellipse3_x, ellipse3_y, speed3X, ellipse3_s, ellipseNagative 
     ellipse3_x = 450
     ellipse3_y = 0
-    ellipse3_s = 25
+    ellipse3_s = 30
     speed3X = .5 
     
     #YELLOW BALL 
     global ellipse7_x, ellipse7_y, speed7X, ellipse7_s, ellipseNagative 
     ellipse7_x = -450
     ellipse7_y = 0
-    ellipse7_s = 25
+    ellipse7_s = 30
     speed7X = -.5 
     
     global redBall, blueBall, greenBall, yellowBall
@@ -95,6 +96,11 @@ def setup():
     global shoot
     shoot = False
     
+    global red, green, blue
+    red = 255
+    green = 0
+    blue = 0
+    
     frameRate(100)
 
 def get_coords(x, y):
@@ -106,7 +112,7 @@ def draw():
     frameRate(100)
     smooth()
     
-    global sShip
+    global sShip, img
     global sX, sY
     global theta
     global laser
@@ -116,6 +122,12 @@ def draw():
     global ball
     global redBall, blueBall, greenBall, yellowBall
     global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
+    global red, green, blue
+    
+    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative # Red Ball Variables
+    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative # Green Ball Variables
+    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative # Blue Ball Variables
+    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative # Yellow Ball Variables
     
     translate(500, 500)    
     image(img,0,0)
@@ -127,10 +139,10 @@ def draw():
     global shield1_x, shield1_y, shield1
     #sheilds functions 
     if shield4:
-        fill(247,215,9, 125)
+        fill(255,0,0, 125)
+        noStroke()
         ellipse(0,0,800,800)
     if (((ellipse1_x)**2 + (ellipse1_y)**2  or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2))) < 422**2 and shield4 and (redBall or greenBall or blueBall or yellowBall):
-        print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
@@ -138,9 +150,9 @@ def draw():
         shield4 = False
     if shield3:
         fill(0, 255, 0, 125)
+        noStroke()
         ellipse(0,0,600,600)
     if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 322**2 and shield3 and (redBall or greenBall or blueBall or yellowBall):
-        print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
@@ -148,29 +160,24 @@ def draw():
         shield3 = False
     if shield2:
         fill(0, 0, 255, 125)
+        noStroke()
         ellipse(0,0,400,400)
     if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 222**2 and shield2 and (redBall or greenBall or blueBall or yellowBall):
-        print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
         speed7X = -speed7X
         shield2 = False
     if shield1:
-        fill(255, 0, 0, 180)
+        fill(255, 255, 0, 180)
+        noStroke()
         ellipse(0,0,200,200)
     if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 122**2 and shield1 and (redBall or greenBall or blueBall or yellowBall):
-        print "Switch"
         speedY = -speedY
         speed5Y = -speed5Y
         speed3X = -speed3X
         speed7X = -speed7X
         shield1 = False
-      
-    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative # Red Ball Variables
-    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative # Green Ball Variables
-    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative # Blue Ball Variables
-    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative # Yellow Ball Variables
     
       
     #RED BALL
@@ -179,6 +186,7 @@ def draw():
     
     if redBall:
         fill(255,0,0)
+        noStroke()
         ellipse(ellipse1_x, ellipse1_y, 50, 50)
         
     if ellipse1_y < -475:
@@ -191,6 +199,7 @@ def draw():
     
     if greenBall:
         fill(0,255,0)
+        noStroke()
         ellipse(ellipse5_x, ellipse5_y, 50, 50)
         
     if ellipse5_y > 475:
@@ -202,6 +211,7 @@ def draw():
     
     if blueBall:
         fill(0,0,255)
+        noStroke()
         ellipse(ellipse3_x, ellipse3_y, 50, 50)
         
     if ellipse3_x > 475:
@@ -213,6 +223,7 @@ def draw():
     
     if yellowBall:
         fill(247,215,9)
+        noStroke()
         ellipse(ellipse7_x, ellipse7_y, 50, 50)
         
     if ellipse7_x < -475:
@@ -225,6 +236,7 @@ def draw():
     
     if shoot:
         fill(254)
+        stroke(red, green, blue)
         rect(laserX, laserY, laserW, laserH)
         
     # The Goal: To rotate with A and D
@@ -241,8 +253,8 @@ def keyPressed():
     global shoot
     global ball
     global redBall, blueBall, greenBall, yellowBall
+    global red, green, blue
     global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
-
     
     if key == "a" or key == "A":
         theta -= .05 # This is similar to saying theta = theta - 0.05
@@ -256,36 +268,68 @@ def keyPressed():
         facingLeft = theta >= PI/2 and theta <= 3*(PI/2)
         while testx <= 500:
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Red Ball
-            if ((testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and not facingLeft: #Tests if theta is positive
+            if ((testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and not facingLeft and (red == 255 and green == 0 and blue == 0): #Tests if theta is positive
                 redBall = False
+                red = 0
+                green = 255
+                blue = 0
+                stroke(red, green, blue)
                 break
             testy = tan(2 * PI - theta) * testx
-            if ((-testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and facingLeft: #Tests if theta is negative
+            if ((-testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and facingLeft and (red == 255 and green == 0 and blue == 0): #Tests if theta is negative
                 redBall = False 
+                red = 0
+                green = 255
+                blue = 0
+                stroke(red, green, blue)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Green Ball
-            if ((testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and not facingLeft: #Tests if theta is positive
+            if ((testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and not facingLeft and (red == 0 and green == 255 and blue == 0): #Tests if theta is positive
                 greenBall = False
+                red = 0
+                green = 0
+                blue = 255
+                stroke(red, green, blue)
                 break
             testy = tan(2 * PI - theta) * testx
-            if ((-testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and facingLeft: #Tests if theta is negative
+            if ((-testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and facingLeft and (red == 0 and green == 255 and blue == 0): #Tests if theta is negative
                 greenBall = False 
+                red = 0
+                green = 0
+                blue = 255
+                stroke(red, green, blue)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Blue Ball
-            if ((testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and not facingLeft: #Tests if theta is positive
+            if ((testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and not facingLeft and (red == 0 and green == 0 and blue == 255): #Tests if theta is positive
                 blueBall = False
+                red = 255
+                green = 255
+                blue = 0
+                stroke(red, green, blue)
                 break
             testy = tan(2 * PI - theta) * testx
-            if ((-testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and facingLeft: #Tests if theta is negative
+            if ((-testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and facingLeft and (red == 0 and green == 0 and blue == 255): #Tests if theta is negative
                 blueBall = False 
+                red = 255
+                green = 255
+                blue = 0
+                stroke(red, green, blue)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Yellow Ball
-            if ((testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and not facingLeft: #Tests if theta is positive
+            if ((testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and not facingLeft and (red == 255 and green == 255 and blue == 0): #Tests if theta is positive
                 yellowBall = False
+                red = 255
+                green = 0
+                blue = 0
+                stroke(red, green, blue)
                 break
             testy = tan(2 * PI - theta) * testx
-            if ((-testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and facingLeft: #Tests if theta is negative
+            if ((-testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and facingLeft and (red == 255 and green == 255 and blue == 0): #Tests if theta is negative
                 yellowBall = False 
+                red = 255
+                green = 0
+                blue = 0
+                stroke(red, green, blue)
                 break 
             testx += 1               
         
