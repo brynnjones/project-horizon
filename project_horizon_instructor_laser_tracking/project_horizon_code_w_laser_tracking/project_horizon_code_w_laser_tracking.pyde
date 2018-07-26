@@ -104,13 +104,12 @@ def setup():
     
     
     ## SCREENS ##
-    global startUp, theGame, loseScreen, winScreen, instructions
+    global startUp, theGame, loseScreen, winScreen
     
     startUp = True
     theGame = False
     loseScreen = False
     winScreen = False
-    instructions = False
     
     frameRate(100)
 
@@ -123,12 +122,11 @@ def draw():
     frameRate(100)
     smooth()
     
-    global startUp, theGame, loseScreen, winScreen, instructions, img, group
+    global startUp, theGame, loseScreen, winScreen, img, group
     
     if mousePressed:
         startUp = False
-        instructions = True
-        theGame = False
+        theGame = True
     
     if startUp:
         image(img, 500, 500, 1000, 1000)
@@ -164,23 +162,6 @@ def draw():
         text('Brynn Jones,', 520, 640)
         fill(255, 255, 0)
         text('Mobolaji Ogunlade', 650, 640)
-
-        
-    if instructions:
-        image(img, 500, 500, 1000, 1000)
-        fill(254)
-        stroke(154, 31, 96)
-        rect(345, 345, 350, 350, 7)
-        textSize(100)
-        fill(0, 255, 0)
-        text('PRESS', 510, 490)
-        fill(255, 0, 0)
-        text('Enter', 510, 600)
-        
-        ## HEADER ##
-        textSize(50)
-        textAlign(CENTER)
-        # text("INSTRUCTIONS")
              
     if keyPressed:
         if key == ENTER:
