@@ -1,8 +1,9 @@
 def setup():
     size(1000, 1000)
     #background
-    global img
+    global img, group
     img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
+    group = loadImage("group picture.jpg")
     
     ## SHIELDS ##
     
@@ -101,10 +102,15 @@ def setup():
     green = 0
     blue = 0
     
-    global startUp, theGame
+    
+    ## SCREENS ##
+    global startUp, theGame, loseScreen, winScreen, instructions
     
     startUp = True
     theGame = False
+    loseScreen = False
+    winScreen = False
+    instructions = False
     
     frameRate(100)
 
@@ -117,18 +123,69 @@ def draw():
     frameRate(100)
     smooth()
     
-    global startUp, theGame
+    global startUp, theGame, loseScreen, winScreen, instructions, img, group
     
     if mousePressed:
         startUp = False
-        theGame = True
+        instructions = True
+        theGame = False
     
     if startUp:
-        background(0)
+        image(img, 500, 500, 1000, 1000)
         fill(255)
         noStroke()
-        rect(500, 500, 50, 50)
-            
+        triangle(500, 700, 500, 800, 580, 750)
+        #fill(255, 0, 0)
+        textSize(200)
+        # RGB: HORIZON
+        #fill(255, 0, 0)
+        #stroke(255, 255, 255)
+        fill(255, 0, 0)
+        text('R', 300, 500)
+        fill(0, 255, 0)
+        text('G', 420, 500)
+        fill(0, 0, 255)
+        text('B', 560, 500)
+        fill(255, 255, 0)
+        text(':', 670, 480)
+        fill(255, 255, 0)
+        textSize(90)
+        text('HORIZON', 310, 600)
+        
+        #Names 
+        textSize(20)
+        fill(255)
+        text('By:', 195, 640)
+        fill(255, 0, 0)
+        text('Msontai Brock,', 230, 640)
+        fill(0, 255, 0)
+        text('Nikara Taylor,', 380, 640)
+        fill(0, 0, 255)
+        text('Brynn Jones,', 520, 640)
+        fill(255, 255, 0)
+        text('Mobolaji Ogunlade', 650, 640)
+
+        
+    if instructions:
+        image(img, 500, 500, 1000, 1000)
+        fill(254)
+        stroke(154, 31, 96)
+        rect(345, 345, 350, 350, 7)
+        textSize(100)
+        fill(0, 255, 0)
+        text('PRESS', 510, 490)
+        fill(255, 0, 0)
+        text('Enter', 510, 600)
+        
+        ## HEADER ##
+        textSize(50)
+        textAlign(CENTER)
+        # text("INSTRUCTIONS")
+             
+    if keyPressed:
+        if key == ENTER:
+            instructions = False
+            theGame = True
     
     if theGame:
         global sShip, img
@@ -258,15 +315,65 @@ def draw():
             stroke(red, green, blue)
             rect(laserX, laserY, laserW, laserH)
             
-        ### RESULTS ###
+    if not redBall and not greenBall and not blueBall and not yellowBall:
+        theGame = False
+        winScreen = True
         
-        ## IF YOU WIN
-        if not redBall and not greenBall and not blueBall and not yellowBall:
-            background(0)
+    if (ellipse1_y >= -50) or (ellipse5_y <= 50) or (ellipse3_x <= 50) or (ellipse7_x >= -50):
+        theGame = False
+        loseScreen = True
+
             
-        ## IF YOU LOSE
-        if (ellipse1_y >= -50) or (ellipse5_y <= 50) or (ellipse3_x <= 50) or (ellipse7_x >= -50):
-            background(255)
+    ### RESULTS ###
+    
+    if loseScreen:
+        background(0)
+        image(img, 500, 500, 1000, 1000)
+        image(group, 500, 450, 450, 450)
+        fill(random(255),random(0),random(0))
+        textSize(220)
+        text("G",110,170)
+        text("A",110,430)
+        text("M",110,690)
+        text("E",110,940)
+        text("O",280,940)
+        text("V",465,940)
+        text("E",635,940)
+        text("R",815,940)
+
+        
+    if winScreen:
+        background(0)
+        image(img, 500, 500, 1000, 1000)
+        image(group, 500, 230, 400, 400)
+        fill(0,0,255)
+        textSize(200)
+        text("W",100,700)
+        fill(255,0,0)
+        textSize(200)
+        text("I",260,700)
+        fill(255,255,0)
+        textSize(200)
+        text("N",360,700)
+        fill(0,0,255)
+        textSize(200)
+        text("N",500,700)
+        fill(0,255,0)
+        textSize(200)
+        text("E",630,700)
+        fill(255,0,0)
+        textSize(200)
+        text("R",740,700)
+        fill(0,0,255)
+        textSize(300)
+        text("!",860,700)
+        fill(0,255,0)
+        textSize(300)
+        text("!",890,700)
+        fill(255,0,0)
+        textSize(300)
+        text("!",910,700)
+
         
 # The Goal: To rotate with A and D
 def keyPressed():
