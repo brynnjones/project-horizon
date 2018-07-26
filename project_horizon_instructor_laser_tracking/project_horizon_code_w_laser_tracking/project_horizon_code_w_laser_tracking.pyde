@@ -36,7 +36,7 @@ def setup():
     global ellipse1_x, ellipse1_y, speedY, ellipse1_s, ellipse1Negative
     ellipse1_x = 0
     ellipse1_y = -450
-    ellipse1_s = 30
+    ellipse1_s = 32
     speedY = .5
     ellipse1Negative = False
     
@@ -44,21 +44,21 @@ def setup():
     global ellipse5_x, ellipse5_y, speed5Y, ellipse5_s, ellipseNegative 
     ellipse5_x = 0
     ellipse5_y = 450
-    ellipse5_s = 30
+    ellipse5_s = 32
     speed5Y = .5
     
     #BLUE BALL
     global ellipse3_x, ellipse3_y, speed3X, ellipse3_s, ellipseNagative 
     ellipse3_x = 450
     ellipse3_y = 0
-    ellipse3_s = 30
+    ellipse3_s = 32
     speed3X = .5 
     
     #YELLOW BALL 
     global ellipse7_x, ellipse7_y, speed7X, ellipse7_s, ellipseNagative 
     ellipse7_x = -450
     ellipse7_y = 0
-    ellipse7_s = 30
+    ellipse7_s = 32 
     speed7X = -.5 
     
     global redBall, blueBall, greenBall, yellowBall
@@ -101,6 +101,11 @@ def setup():
     green = 0
     blue = 0
     
+    global startUp, theGame
+    
+    startUp = True
+    theGame = False
+    
     frameRate(100)
 
 def get_coords(x, y):
@@ -112,134 +117,158 @@ def draw():
     frameRate(100)
     smooth()
     
-    global sShip, img
-    global sX, sY
-    global theta
-    global laser
-    global speed   
-    global laserX, laserY, laserW, laserH
-    global shoot
-    global ball
-    global redBall, blueBall, greenBall, yellowBall
-    global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
-    global red, green, blue
+    global startUp, theGame
     
-    global ellipse1_x, ellipse1_y, speedY, ellipse1Negative # Red Ball Variables
-    global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative # Green Ball Variables
-    global ellipse3_x, ellipse3_y, speed3X, ellipseNagative # Blue Ball Variables
-    global ellipse7_x, ellipse7_y, speed7X, ellipseNagative # Yellow Ball Variables
+    if mousePressed:
+        startUp = False
+        theGame = True
     
-    translate(500, 500)    
-    image(img,0,0)
-    
-    #calling the shield from setup
-    global shield4_x, shield4_y, shield4
-    global shield3_x, shield3_y, shield3
-    global shield2_x, shield2_y, shield2
-    global shield1_x, shield1_y, shield1
-    #sheilds functions 
-    if shield4:
-        fill(255,0,0, 125)
+    if startUp:
+        background(0)
+        fill(255)
         noStroke()
-        ellipse(0,0,800,800)
-    if (((ellipse1_x)**2 + (ellipse1_y)**2  or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2))) < 422**2 and shield4 and (redBall or greenBall or blueBall or yellowBall):
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield4 = False
-    if shield3:
-        fill(0, 255, 0, 125)
-        noStroke()
-        ellipse(0,0,600,600)
-    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 322**2 and shield3 and (redBall or greenBall or blueBall or yellowBall):
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield3 = False
-    if shield2:
-        fill(0, 0, 255, 125)
-        noStroke()
-        ellipse(0,0,400,400)
-    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 222**2 and shield2 and (redBall or greenBall or blueBall or yellowBall):
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield2 = False
-    if shield1:
-        fill(255, 255, 0, 180)
-        noStroke()
-        ellipse(0,0,200,200)
-    if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 122**2 and shield1 and (redBall or greenBall or blueBall or yellowBall):
-        speedY = -speedY
-        speed5Y = -speed5Y
-        speed3X = -speed3X
-        speed7X = -speed7X
-        shield1 = False
-    
-      
-    #RED BALL
-    # if ball 1 hit the outter circle at 500 then  bounce back... then come back down
-    ellipse1_y = ellipse1_y - speedY 
-    
-    if redBall:
-        fill(255,0,0)
-        noStroke()
-        ellipse(ellipse1_x, ellipse1_y, 50, 50)
-        
-    if ellipse1_y < -475:
-        ellipseNegative = False 
-        speedY = -speedY 
+        rect(500, 500, 50, 50)
             
-    #GREEN BALL
-    #if ball 5 hits shield 4 at 800 then bounce back...
-    ellipse5_y = ellipse5_y + speed5Y
     
-    if greenBall:
-        fill(0,255,0)
-        noStroke()
-        ellipse(ellipse5_x, ellipse5_y, 50, 50)
+    if theGame:
+        global sShip, img
+        global sX, sY
+        global theta
+        global laser
+        global speed   
+        global laserX, laserY, laserW, laserH
+        global shoot
+        global ball
+        global redBall, blueBall, greenBall, yellowBall
+        global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
+        global red, green, blue
         
-    if ellipse5_y > 475:
-        ellipseNegative = False 
-        speed5Y = -speed5Y 
-    
-    #BLUE BALL
-    ellipse3_x = ellipse3_x + speed3X
-    
-    if blueBall:
-        fill(0,0,255)
-        noStroke()
-        ellipse(ellipse3_x, ellipse3_y, 50, 50)
+        global ellipse1_x, ellipse1_y, speedY, ellipse1Negative # Red Ball Variables
+        global ellipse5_x, ellipse5_y, speed5Y, ellipseNegative # Green Ball Variables
+        global ellipse3_x, ellipse3_y, speed3X, ellipseNagative # Blue Ball Variables
+        global ellipse7_x, ellipse7_y, speed7X, ellipseNagative # Yellow Ball Variables
         
-    if ellipse3_x > 475:
-        ellipseNegative = False  
-        speed3X = -speed3X
-    
-    #YELLOW BALL
-    ellipse7_x = ellipse7_x + speed7X
-    
-    if yellowBall:
-        fill(247,215,9)
-        noStroke()
-        ellipse(ellipse7_x, ellipse7_y, 50, 50)
+        translate(500, 500)    
+        image(img,0,0)
         
-    if ellipse7_x < -475:
-        ellipseNegative = False 
-        speed7X = -speed7X 
-
-    #translate(500, 500)
-    rotate(theta)
-    image(sShip, sX, sY, 100, 100)
-    
-    if shoot:
-        fill(254)
-        stroke(red, green, blue)
-        rect(laserX, laserY, laserW, laserH)
+        #calling the shield from setup
+        global shield4_x, shield4_y, shield4
+        global shield3_x, shield3_y, shield3
+        global shield2_x, shield2_y, shield2
+        global shield1_x, shield1_y, shield1
+        #sheilds functions 
+        if shield4:
+            fill(255,0,0, 125)
+            noStroke()
+            ellipse(0,0,800,800)
+        if (((ellipse1_x)**2 + (ellipse1_y)**2  or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2))) < 422**2 and shield4 and (redBall or greenBall or blueBall or yellowBall):
+            speedY = -speedY
+            speed5Y = -speed5Y
+            speed3X = -speed3X
+            speed7X = -speed7X
+            shield4 = False
+        if shield3:
+            fill(0, 255, 0, 125)
+            noStroke()
+            ellipse(0,0,600,600)
+        if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 322**2 and shield3 and (redBall or greenBall or blueBall or yellowBall):
+            speedY = -speedY
+            speed5Y = -speed5Y
+            speed3X = -speed3X
+            speed7X = -speed7X
+            shield3 = False
+        if shield2:
+            fill(0, 0, 255, 125)
+            noStroke()
+            ellipse(0,0,400,400)
+        if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 222**2 and shield2 and (redBall or greenBall or blueBall or yellowBall):
+            speedY = -speedY
+            speed5Y = -speed5Y
+            speed3X = -speed3X
+            speed7X = -speed7X
+            shield2 = False
+        if shield1:
+            fill(255, 255, 0, 180)
+            noStroke()
+            ellipse(0,0,200,200)
+        if (((ellipse1_x)**2 + (ellipse1_y)**2) or ((ellipse3_x)**2 + (ellipse3_y)**2) or ((ellipse5_x)**2 + (ellipse5_y)**2) or ((ellipse7_x)**2 + (ellipse7_y)**2)) < 122**2 and shield1 and (redBall or greenBall or blueBall or yellowBall):
+            speedY = -speedY
+            speed5Y = -speed5Y
+            speed3X = -speed3X
+            speed7X = -speed7X
+            shield1 = False
         
-    # The Goal: To rotate with A and D
+        
+        #RED BALL
+        # if ball 1 hit the outter circle at 500 then  bounce back... then come back down
+        ellipse1_y = ellipse1_y - speedY 
+        
+        if redBall:
+            fill(255,0,0)
+            noStroke()
+            ellipse(ellipse1_x, ellipse1_y, 50, 50)
+            
+        if ellipse1_y < -475:
+            ellipseNegative = False 
+            speedY = -speedY 
+                
+        #GREEN BALL
+        #if ball 5 hits shield 4 at 800 then bounce back...
+        ellipse5_y = ellipse5_y + speed5Y
+            
+        if greenBall:
+            fill(0,255,0)
+            noStroke()
+            ellipse(ellipse5_x, ellipse5_y, 50, 50)
+            
+        if ellipse5_y > 475:
+            ellipseNegative = False 
+            speed5Y = -speed5Y 
+        
+        #BLUE BALL
+        ellipse3_x = ellipse3_x + speed3X
+        
+        if blueBall:
+            fill(0,0,255)
+            noStroke()
+            ellipse(ellipse3_x, ellipse3_y, 50, 50)
+            
+        if ellipse3_x > 475:
+            ellipseNegative = False  
+            speed3X = -speed3X
+        
+        #YELLOW BALL
+        ellipse7_x = ellipse7_x + speed7X
+        
+        if yellowBall:
+            fill(247,215,9)
+            noStroke()
+            ellipse(ellipse7_x, ellipse7_y, 50, 50)
+            
+        if ellipse7_x < -475:
+            ellipseNegative = False 
+            speed7X = -speed7X 
+        
+        #translate(500, 500)
+        rotate(theta)
+        image(sShip, sX, sY, 100, 100)
+        
+        if shoot:
+            fill(254)
+            stroke(red, green, blue)
+            rect(laserX, laserY, laserW, laserH)
+            
+        ### RESULTS ###
+        
+        ## IF YOU WIN
+        if not redBall and not greenBall and not blueBall and not yellowBall:
+            background(0)
+            
+        ## IF YOU LOSE
+        if (ellipse1_y >= -50) or (ellipse5_y <= 50) or (ellipse3_x <= 50) or (ellipse7_x >= -50):
+            background(255)
+        
+# The Goal: To rotate with A and D
 def keyPressed():
     frameRate(100)
     smooth()
