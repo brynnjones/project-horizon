@@ -1,9 +1,26 @@
+add_library('minim')
 def setup():
     size(1000, 1000)
     #background
+    global img, group
+    img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
+    group = loadImage("group picture.jpg")
+     #MUSIC
     global img
     img = loadImage('stars_in_the_night_sky_by_demykins.jpg') 
-    
+    #SOUND
+    minim= Minim(this)
+    global explosion
+    explosion = minim.loadFile('atari_boom5.wav')
+    global pew
+    pew = minim.loadFile('laser.aiff')
+    global back
+    back = minim.loadFile('Grey Sector v0_86.mp3')
+    global music
+    if back :
+        back.play(0)
+    global Gn
+    Gn = minim.loadFile('atari_boom.wav')
     ## SHIELDS ##
     
     #shield
@@ -101,10 +118,15 @@ def setup():
     green = 0
     blue = 0
     
-    global startUp, theGame
+    
+    ## SCREENS ##
+    global startUp, theGame, loseScreen, winScreen, instructions
     
     startUp = True
     theGame = False
+    loseScreen = False
+    winScreen = False
+    instructions = False
     
     frameRate(100)
 
@@ -117,18 +139,69 @@ def draw():
     frameRate(100)
     smooth()
     
-    global startUp, theGame
+    global startUp, theGame, loseScreen, winScreen, instructions, img, group
     
     if mousePressed:
         startUp = False
-        theGame = True
+        instructions = True
+        theGame = False
     
     if startUp:
-        background(0)
+        image(img, 500, 500, 1000, 1000)
         fill(255)
         noStroke()
-        rect(500, 500, 50, 50)
-            
+        triangle(500, 700, 500, 800, 580, 750)
+        #fill(255, 0, 0)
+        textSize(200)
+        # RGB: HORIZON
+        #fill(255, 0, 0)
+        #stroke(255, 255, 255)
+        fill(255, 0, 0)
+        text('R', 300, 500)
+        fill(0, 255, 0)
+        text('G', 420, 500)
+        fill(0, 0, 255)
+        text('B', 560, 500)
+        fill(255, 255, 0)
+        text(':', 670, 480)
+        fill(255, 255, 0)
+        textSize(90)
+        text('HORIZON', 310, 600)
+        
+        #Names 
+        textSize(20)
+        fill(255)
+        text('By:', 195, 640)
+        fill(255, 0, 0)
+        text('Msontai Brock,', 230, 640)
+        fill(0, 255, 0)
+        text('Nikara Taylor,', 380, 640)
+        fill(0, 0, 255)
+        text('Brynn Jones,', 520, 640)
+        fill(255, 255, 0)
+        text('Mobolaji Ogunlade', 650, 640)
+
+        
+    if instructions:
+        image(img, 500, 500, 1000, 1000)
+        fill(254)
+        stroke(154, 31, 96)
+        rect(345, 345, 350, 350, 7)
+        textSize(100)
+        fill(0, 255, 0)
+        text('PRESS', 510, 490)
+        fill(255, 0, 0)
+        text('Enter', 510, 600)
+        
+        ## HEADER ##
+        textSize(50)
+        textAlign(CENTER)
+        # text("INSTRUCTIONS")
+             
+    if keyPressed:
+        if key == ENTER:
+            instructions = False
+            theGame = True
     
     if theGame:
         global sShip, img
@@ -167,6 +240,8 @@ def draw():
             speed3X = -speed3X
             speed7X = -speed7X
             shield4 = False
+            if Gn:
+                Gn.play(0)
         if shield3:
             fill(0, 255, 0, 125)
             noStroke()
@@ -177,6 +252,8 @@ def draw():
             speed3X = -speed3X
             speed7X = -speed7X
             shield3 = False
+            if Gn:
+                Gn.play(0)
         if shield2:
             fill(0, 0, 255, 125)
             noStroke()
@@ -187,6 +264,8 @@ def draw():
             speed3X = -speed3X
             speed7X = -speed7X
             shield2 = False
+            if Gn:
+                Gn.play(0)
         if shield1:
             fill(255, 255, 0, 180)
             noStroke()
@@ -197,6 +276,8 @@ def draw():
             speed3X = -speed3X
             speed7X = -speed7X
             shield1 = False
+            if Gn:
+                Gn.play(0)
         
         
         #RED BALL
@@ -258,15 +339,68 @@ def draw():
             stroke(red, green, blue)
             rect(laserX, laserY, laserW, laserH)
             
-        ### RESULTS ###
+    if not redBall and not greenBall and not blueBall and not yellowBall:
+        theGame = False
+        winScreen = True
+        back.pause()
         
-        ## IF YOU WIN
-        if not redBall and not greenBall and not blueBall and not yellowBall:
-            background(0)
+    if (ellipse1_y >= -50) or (ellipse5_y <= 50) or (ellipse3_x <= 50) or (ellipse7_x >= -50):
+        theGame = False
+        loseScreen = True
+        back.pause()
+
             
-        ## IF YOU LOSE
-        if (ellipse1_y >= -50) or (ellipse5_y <= 50) or (ellipse3_x <= 50) or (ellipse7_x >= -50):
-            background(255)
+    ### RESULTS ###
+    
+    if loseScreen:
+        background(0)
+        image(img, 500, 500, 1000, 1000)
+        image(group, 500, 450, 450, 450)
+        fill(random(255),random(0),random(0))
+        textSize(220)
+        text("G",110,170)
+        text("A",110,430)
+        text("M",110,690)
+        text("E",110,940)
+        text("O",280,940)
+        text("V",465,940)
+        text("E",635,940)
+        text("R",815,940)
+        explosion.pause()
+
+        
+    if winScreen:
+        background(0)
+        image(img, 500, 500, 1000, 1000)
+        image(group, 500, 230, 400, 400)
+        fill(0,0,255)
+        textSize(200)
+        text("W",100,700)
+        fill(255,0,0)
+        textSize(200)
+        text("I",260,700)
+        fill(255,255,0)
+        textSize(200)
+        text("N",360,700)
+        fill(0,0,255)
+        textSize(200)
+        text("N",500,700)
+        fill(0,255,0)
+        textSize(200)
+        text("E",630,700)
+        fill(255,0,0)
+        textSize(200)
+        text("R",740,700)
+        fill(0,0,255)
+        textSize(300)
+        text("!",860,700)
+        fill(0,255,0)
+        textSize(300)
+        text("!",890,700)
+        fill(255,0,0)
+        textSize(300)
+        text("!",910,700)
+
         
 # The Goal: To rotate with A and D
 def keyPressed():
@@ -284,6 +418,7 @@ def keyPressed():
     global redBall, blueBall, greenBall, yellowBall
     global red, green, blue
     global ellipse1_s, ellipse5_s, ellipse3_s, ellipse7_s
+    global pew, explosion , Gn
     
     if key == "a" or key == "A":
         theta -= .05 # This is similar to saying theta = theta - 0.05
@@ -292,6 +427,8 @@ def keyPressed():
         theta += .05 
         theta = theta % TWO_PI
     if key == " ": #laser shooting using spacebar
+        if pew :
+            pew.play(0)
         shoot = True
         testx = 0
         facingLeft = theta >= PI/2 and theta <= 3*(PI/2)
@@ -303,6 +440,8 @@ def keyPressed():
                 green = 255
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break
             testy = tan(2 * PI - theta) * testx
             if ((-testx - ellipse1_x)**2 + (testy - ellipse1_y)**2) < (ellipse1_s/2)**2 and facingLeft and (red == 255 and green == 0 and blue == 0): #Tests if theta is negative
@@ -311,6 +450,8 @@ def keyPressed():
                 green = 255
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Green Ball
             if ((testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and not facingLeft and (red == 0 and green == 255 and blue == 0): #Tests if theta is positive
@@ -319,6 +460,8 @@ def keyPressed():
                 green = 0
                 blue = 255
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break
             testy = tan(2 * PI - theta) * testx
             if ((-testx - ellipse5_x)**2 + (testy - ellipse5_y)**2) < (ellipse5_s/2)**2 and facingLeft and (red == 0 and green == 255 and blue == 0): #Tests if theta is negative
@@ -327,6 +470,8 @@ def keyPressed():
                 green = 0
                 blue = 255
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Blue Ball
             if ((testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and not facingLeft and (red == 0 and green == 0 and blue == 255): #Tests if theta is positive
@@ -335,6 +480,8 @@ def keyPressed():
                 green = 255
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break
             testy = tan(2 * PI - theta) * testx
             if ((-testx - ellipse3_x)**2 + (testy - ellipse3_y)**2) < (ellipse3_s/2)**2 and facingLeft and (red == 0 and green == 0 and blue == 255): #Tests if theta is negative
@@ -343,6 +490,8 @@ def keyPressed():
                 green = 255
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break 
             testy = tan(2 * PI - theta) * testx* -1 ### Testing for the Yellow Ball
             if ((testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and not facingLeft and (red == 255 and green == 255 and blue == 0): #Tests if theta is positive
@@ -351,6 +500,8 @@ def keyPressed():
                 green = 0
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break
             testy = tan(2 * PI - theta) * testx
             if ((-testx - ellipse7_x)**2 + (testy - ellipse7_y)**2) < (ellipse7_s/2)**2 and facingLeft and (red == 255 and green == 255 and blue == 0): #Tests if theta is negative
@@ -359,6 +510,8 @@ def keyPressed():
                 green = 0
                 blue = 0
                 stroke(red, green, blue)
+                if explosion :
+                    explosion.play(0)
                 break 
             testx += 1               
         
