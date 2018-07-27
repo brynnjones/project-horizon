@@ -47,7 +47,7 @@ def setup():
     shield1_x = 0
     shield1 = True 
     
-    ## BALLS ##
+    ## BALLS ##0
     
     #RED BALL
     global ellipse1_x, ellipse1_y, speedY, ellipse1_s, ellipse1Negative
